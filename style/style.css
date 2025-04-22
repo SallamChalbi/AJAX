@@ -1,3 +1,13 @@
+.home{
+    background-image: url('../image/images.jpeg');
+    background-size: cover;
+    height: 100vh;
+}
+
+.navbar .nav-link{
+    cursor: pointer;
+}
+
 .card{
     height: 100%;
 }
