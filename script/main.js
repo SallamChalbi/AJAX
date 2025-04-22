@@ -7,19 +7,24 @@ for (var i = 0; i < links.length; i++) {
     });
 }
 
-apiData('pizza')
+(async function() {
+    await apiData('pizza')
+})()
 
 function apiData(recipe){
-    var https = new XMLHttpRequest();
-    https.open('GET', `https://forkify-api.herokuapp.com/api/search?q=${recipe}`);
-    https.send();
+    return new Promise(function(callback){{
+        var https = new XMLHttpRequest();
+        https.open('GET', `https://forkify-api.herokuapp.com/api/search?q=${recipe}`);
+        https.send();
 
-    https.addEventListener('readystatechange', function() {
-        if (https.readyState === 4 && https.status === 200) {
-            recipes = JSON.parse(https.response).recipes;
-            display();
-        }
-    }); 
+        https.addEventListener('readystatechange', function() {
+            if (https.readyState === 4 && https.status === 200) {
+                recipes = JSON.parse(https.response).recipes;
+                display();
+                callback();
+            }
+        }); 
+    }})
 }
 
 function display(){
