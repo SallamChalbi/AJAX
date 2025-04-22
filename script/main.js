@@ -7,24 +7,14 @@ for (var i = 0; i < links.length; i++) {
     });
 }
 
-(async function() {
-    await apiData('pizza')
-})()
+apiData('pizza')
 
-function apiData(recipe){
-    return new Promise(function(callback){{
-        var https = new XMLHttpRequest();
-        https.open('GET', `https://forkify-api.herokuapp.com/api/search?q=${recipe}`);
-        https.send();
+async function apiData(meal){
+    var https = await fetch(`https://forkify-api.herokuapp.com/api/search?q=${meal}`);
+    var response = await https.json();
 
-        https.addEventListener('readystatechange', function() {
-            if (https.readyState === 4 && https.status === 200) {
-                recipes = JSON.parse(https.response).recipes;
-                display();
-                callback();
-            }
-        }); 
-    }})
+    recipes = response.recipes;
+    display();
 }
 
 function display(){
